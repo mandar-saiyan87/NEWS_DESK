@@ -3,7 +3,7 @@ class CustomNav extends HTMLElement {
     this.innerHTML = `
         <!-- Navbar Start -->
       <div class="nav-header">
-        <a href="index.html">
+        <a href="index.php">
           <div class="logo">
             <p class="lname">ND</p>
             <p class="ldesc">Anytime, Anywhere</p>
@@ -12,19 +12,19 @@ class CustomNav extends HTMLElement {
 
         <div>
           <ul class="nav-menu">
-            <a href="index.html">
+            <a href="index.php">
               <li class="nav-button">Home</li>
             </a>
-            <a href="about.html">
+            <a href="about.php">
               <li class="nav-button">About</li>
             </a>
-            <a href="contactUs.html">
+            <a href="contactUs.php">
               <li class="nav-button">Contact Us</li>
             </a>
-            <a href="membership.html">
+            <a href="membership.php">
               <li class="nav-button">Membership</li>
             </a>
-            <a href="faq.html">
+            <a href="faq.php">
               <li class="nav-button">FAQ</li>
             </a>
           </ul>
@@ -65,19 +65,19 @@ class CustomNav extends HTMLElement {
               <p class="close_btn">X</p>
             </div>
             <ul class="mobilemenu">
-              <a href="index.html">
+              <a href="index.php">
                 <li class="nav-button">Home</li>
               </a>
-              <a href="about.html">
+              <a href="about.php">
                 <li class="nav-button">About</li>
               </a>
-              <a href="contactUs.html">
+              <a href="contactUs.php">
                 <li class="nav-button">Contact Us</li>
               </a>
-              <a href="membership.html">
+              <a href="membership.php">
                 <li class="nav-button">Membership</li>
               </a>
-              <a href="faq.html">
+              <a href="faq.php">
                 <li class="nav-button">FAQ</li>
               </a>
             </ul>
@@ -173,7 +173,7 @@ class CustomFooter extends HTMLElement {
       <div class="main-footer-container wow fadeIn hide" data-wow-delay="0.5s">
         <div class="footer-misc">
           <div class="logo-desc">
-            <a href="index.html">
+            <a href="index.php">
               <div class="footer-logo">
                 <p class="lname">ND</p>
                 <p class="ldesc">Anytime, Anywhere</p>
@@ -187,10 +187,10 @@ class CustomFooter extends HTMLElement {
               <a href='#'>
                 <li>About Us</li>
               </a>
-              <a href='faq.html'>
+              <a href='faq.php'>
                 <li>FAQ</li>
               </a>
-              <a href='membership.html'>
+              <a href='membership.php'>
                 <li>Membership</li>
               </a>
               <a href='#'>

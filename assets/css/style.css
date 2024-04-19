@@ -275,9 +275,34 @@ img {
 }
 
 
+.messages-success {
+  display: flex;
+  position: absolute;
+  top: 1%;
+  max-width: max-content;
+  background-color: rgb(156, 219, 156);
+  color: rgb(11, 87, 11);
+  font-size: large;
+  font-weight: 600;
+  padding: 0.5rem 2rem;
+  z-index: 10;
+}
 
+.messages-error {
+  display: flex;
+  position: absolute;
+  top: 1%;
+  max-width: max-content;
+  background-color: rgb(230, 140, 140);
+  color: rgb(175, 57, 57);
+  font-size: large;
+  font-weight: 600;
+  padding: 0.5rem 2rem;
+  z-index: 10;
+}
 
 /************************** NAVBAR ***********************************************/
+
 
 /*Modal Common*/
 .modal-title {
@@ -392,7 +417,6 @@ img {
 
 .newsmenu {
   display: flex;
-  justify-content: center;
   background-color: var(--primary-color);
   padding: 1rem 2.5rem;
 }

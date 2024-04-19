@@ -34,6 +34,44 @@
     ?>
     <!-- Search News Modal End -->
 
+    <!-- Messages Start -->
+    <?php
+    // signup successful
+    if (isset($_SESSION['signup_success'])) {
+      echo '
+    <script>
+          setTimeout(() => {
+            $(".messages-success").css("display", "none")
+    }, 2000);
+    </script>
+    <div class="messages-success">
+        <p>User Created Successfully</p>
+    </div>
+    ';
+      // clear session
+      unset($_SESSION['signup_success']); 
+    }
+
+    // signup failed
+    if (isset($_SESSION['signup_failure'])) {
+      echo '
+    <script>
+        <script>
+          setTimeout(() => {
+            $(".messages-error").css("display", "none")
+    }, 2000);
+    </script>
+    </script>
+    <div class="messages-error">
+        <p>Something went wrong, Please try again!</p>
+    </div>
+    ';
+    // clear session
+      unset($_SESSION['signup_failure']);
+    }
+    ?>
+    <!-- Messages End -->
+
     <!-- Main Content Start -->
     <div class="main_content">
       <div class="loading-spinner">
@@ -106,7 +144,7 @@
 
     <!-- Footer Section Start -->
     <?php
-      include('footer.php')
+    include('footer.php')
     ?>
     <!-- Footer Section End -->
   </div>

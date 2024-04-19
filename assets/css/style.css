@@ -1,0 +1,799 @@
+/*********************  Default-CSS  *********************/
+:root {
+  scroll-behavior: unset;
+  --primary-color: #e37777;
+  --secondary-color: #8392A7;
+}
+
+html {
+  -webkit-text-size-adjust: none
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
+  color: #8392A7;
+  background-color: #F9FAFC;
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+a,
+span,
+a:hover,
+a:active,
+button {
+  text-decoration: none;
+}
+
+a,
+div a:hover,
+div a:active,
+div a:focus,
+button {
+  text-decoration: none;
+  -webkit-transition: all 0.5s ease 0s;
+  -moz-transition: all 0.5s ease 0s;
+  -ms-transition: all 0.5s ease 0s;
+  -o-transition: all 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
+}
+
+button:focus {
+  box-shadow: none !important;
+}
+
+p {
+  margin: 0;
+}
+
+body h1,
+body h2,
+body h3,
+body h4,
+body h5,
+body h6 {
+  margin: 0;
+}
+
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+.row {
+  margin: 0 -15px;
+}
+
+.container {
+  padding: 0 15px;
+}
+
+.col,
+[class*=col-] {
+  padding: 0 15px;
+}
+
+.common_btn {
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+  color: white;
+  display: inline-block;
+  border-radius: 30px;
+  background: var(--primary-color);
+  padding: 12px 24px;
+  border: 1px solid var(--primary-color);
+  line-height: 1;
+}
+
+.common_btn:hover {
+  background-color: #fff;
+  color: var(--primary-color);
+}
+
+.main_wrapper {
+  position: relative;
+  max-width: 1530px;
+  margin: auto;
+  padding-top: 5rem;
+}
+
+.section-title {
+  margin: 3rem 0;
+  color: var(--primary-color);
+}
+
+.section-description {
+  color: var(--secondary-color);
+}
+
+/* Loading Spinner*/
+
+.loading-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.lds-ring {
+  /* change color here */
+  color: var(--primary-color)
+}
+
+.lds-ring,
+.lds-ring div {
+  box-sizing: border-box;
+}
+
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 50px;
+  height: 50px;
+}
+
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  margin: 8px;
+  border: 6px solid currentColor;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: currentColor transparent transparent transparent;
+}
+
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/****************** Overlay Responsive Nav/Hamburger Menu **************************************/
+
+.overlay {
+  display: block;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  top: 0;
+  left: 100%;
+  z-index: 100;
+  transition: 0.5s ease;
+}
+
+.overlay-show {
+  left: 0;
+}
+
+.mobile-menu {
+  position: fixed;
+  width: 70%;
+  height: 100%;
+  padding: 2rem;
+  top: 0;
+  right: -100%;
+  background-color: white;
+  z-index: 101;
+  transition: 0.8s ease;
+}
+
+.mobile-menu-show {
+  right: 0;
+}
+
+.mobilemenu li {
+  margin-top: 1.5rem;
+}
+
+
+.mobileauthbtn {
+  display: flex;
+  margin-top: 2rem;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.mobilecommon_btn {
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  color: white;
+  display: inline-block;
+  border-radius: 30px;
+  background: var(--primary-color);
+  padding: 10px 20px;
+  border: 1px solid var(--primary-color);
+  line-height: 1;
+}
+
+.mobilecommon_btn:hover {
+  background-color: #fff;
+  color: var(--primary-color);
+}
+
+.close_btn_div {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close_btn {
+  max-width: max-content;
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+  background-color: var(--primary-color);
+  padding: 0.1rem 0.4rem;
+  border-radius: 2rem;
+  cursor: pointer;
+}
+
+
+
+
+/************************** NAVBAR ***********************************************/
+
+/*Modal Common*/
+.modal-title {
+  color: var(--primary-color);
+}
+
+.form-control {
+  border: var(--bs-border-width) solid var(--primary-color);
+}
+
+.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.25rem rgba(227, 119, 119, .25);
+}
+
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--primary-color);
+  --bs-btn-border-color: var(--primary-color);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #e25e5e;
+  --bs-btn-hover-border-color: #e25e5e;
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #e24c4c;
+  --bs-btn-active-border-color: #e24c4c;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+}
+
+
+/* Login Modal*/
+
+
+/********** Logo ***********/
+.logo {
+  text-align: center;
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
+.logo .lname,
+.footer-logo .lname {
+  font-weight: 700;
+  font-style: italic;
+  font-size: xx-large;
+  line-height: 1.5rem;
+}
+
+.logo .ldesc,
+.footer-logo .ldesc {
+  font-weight: 400;
+  font-size: small;
+}
+
+
+/********** Nav Button ***********/
+
+.nav-header {
+  background-color: white;
+  display: flex;
+  width: 100%;
+  height: 5rem;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2.5rem;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  max-width: 1530px;
+}
+
+.nav-button {
+  color: var(--primary-color);
+  cursor: pointer;
+  transition: transform 0.3s;
+  font-weight: 600;
+}
+
+.nav-button:hover {
+  transform: scale(1.1);
+}
+
+
+.nav-menu {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-end {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.auth-btn {
+  display: flex;
+  gap: 0.7rem;
+}
+
+.search {
+  width: 1.5rem;
+  cursor: pointer;
+}
+
+.hbmenu {
+  display: none;
+  width: 1.5rem;
+  cursor: pointer;
+  align-items: center;
+}
+
+.newsmenu {
+  display: flex;
+  justify-content: center;
+  background-color: var(--primary-color);
+  padding: 1rem 2.5rem;
+}
+
+.newmenu-btn {
+  color: white
+}
+
+/******************* < !-- Hero Section --> CSS ************************/
+
+.section-hero {
+  background-image: url('../images/bthero.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.bg-wrapper {
+  background-color: rgba(0, 0, 0, 0.70);
+  width: 100%;
+  height: 100%;
+}
+
+.hero-container {
+  margin-top: 1.5rem;
+  padding: 4rem;
+}
+
+.hero-title {
+  color: white;
+  font-weight: 600;
+}
+
+.hero-subtitle {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: medium;
+  color: rgb(178, 175, 175);
+  margin-top: 1rem;
+}
+
+.hero-click {
+  display: flex;
+  color: white;
+  align-items: center;
+  justify-content: end;
+  cursor: pointer;
+  margin-top: 10rem;
+}
+
+.hero-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-titles {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.owl-nav {
+  display: none;
+  width: 100%;
+  justify-content: space-between;
+  font-size: 5.5rem;
+  color: white;
+  position: absolute;
+  top: 33%
+}
+
+.owl-dots {
+  margin-top: 1rem;
+}
+
+/******************* < !-- News Section --> CSS ************************/
+
+.main-container {
+  margin-bottom: 1.2rem;
+}
+
+
+.news-row {
+  margin-bottom: 1.5rem;
+}
+
+.news-card {
+  cursor: pointer;
+  margin: 0 0.3rem;
+}
+
+.news-cardimg {
+  width: 100%;
+  object-fit: cover;
+  height: 250px;
+  transition: transform 0.2s;
+}
+
+.news-cardimg:hover {
+  transform: scale(1.04)
+}
+
+
+
+.news-cardtag {
+  margin: 0.5rem 0;
+  background-color: var(--primary-color);
+  max-width: max-content;
+  color: white;
+  font-size: small;
+  font-weight: 500;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.3rem;
+}
+
+.news-cardtitle {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: large;
+}
+
+
+
+
+/******************* < !-- FAQ Section --> CSS ************************/
+
+
+.faq-title {
+  margin: 1rem 0;
+  color: var(--primary-color);
+}
+
+.faq-description {
+  color: var(--secondary-color);
+}
+
+.faq-accordion-container {
+  margin: 1rem 0;
+}
+
+
+
+.accordion-button {
+  color: var(--primary-color);
+}
+
+
+.accordion-button:not(.collapsed) {
+  color: #e84747;
+  background-color: #ffd4d4;
+}
+
+.accordion-item {
+  text-align: start;
+  color: var(--secondary-color);
+  margin: 1rem 0;
+}
+
+.pointer {
+  background-color: var(--primary-color);
+  width: 0.8rem;
+  height: 0.8rem;
+  margin: 0.7rem;
+  border-radius: 0.3rem;
+}
+
+
+/******************* < !-- Our Trusted Partners Section --> CSS ************************/
+
+#otp {
+  padding-top: 5rem;
+}
+
+.pngico {
+  display: block;
+  align-items: center;
+  justify-content: center;
+  width: 7rem;
+  height: 7rem;
+}
+
+.ico-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.ico-div {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 2.5rem 0;
+}
+
+
+/******************* < !-- Membership Section --> CSS ************************/
+
+
+.mem-card {
+  width: 30%;
+  margin: 2rem 0;
+  border: 1px solid var(--primary-color);
+  padding: 1.2rem 1rem;
+  border-radius: .5rem;
+}
+
+.card-title {
+  color: var(--primary-color);
+  margin: 1rem 0;
+  font-weight: 600;
+}
+
+.card-price {
+  font-size: x-large;
+  font-weight: 500;
+}
+
+.mem-card ul {
+  margin-bottom: 2.3rem;
+}
+
+.mem-card ul li {
+  margin: 1rem 0;
+  font-size: medium;
+}
+
+
+.mem-button {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  padding: 0.3rem 0.7rem;
+  border: none;
+  border-radius: .3rem;
+}
+
+.btn-clicked {
+  opacity: 0.50;
+}
+
+/*********** Modal ***********/
+.suggest {
+  font-size: medium;
+}
+
+.option {
+  color: var(--primary-color);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+
+/******************* < !-- Footer Section --> CSS ************************/
+.main-footer-container {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  margin-top: 4rem;
+  background-color: var(--primary-color);
+  color: white;
+  text-align: left;
+  padding: 1.8rem 2.5rem;
+}
+
+
+.footer-logo {
+  color: white;
+  cursor: pointer;
+}
+
+.footer-misc {
+  display: flex;
+  align-items: start;
+  text-align: left;
+  column-gap: 3rem;
+}
+
+.logo-desc {
+  max-width: 25%;
+}
+
+.logo-desc .desc {
+  font-size: smaller;
+  margin-top: 0.6rem;
+}
+
+.footer-misc ul {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.footer-misc ul li {
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+  font-size: smaller;
+  font-weight: 500;
+}
+
+.git h5 {
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+
+.git p {
+  font-size: smaller;
+}
+
+.email {
+  font-weight: 500;
+  margin-top: 0.2rem;
+}
+
+.social {
+  display: flex;
+  column-gap: 1rem;
+}
+
+.social img {
+  width: 1.6rem;
+  margin-top: 0.8rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+/********* Search News Card ************/
+
+.search-card-main {
+  display: flex;
+  border-radius: 0.5rem;
+  border: 1px solid var(--secondary-color);
+  margin: 1rem 0;
+  box-shadow: 4px 0 4px -4px var(--secondary-color),
+    -4px 0 4px -4px var(--secondary-color),
+    0 4px 4px -4px var(--secondary-color);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.search-card-main:hover {
+  transform: scale(1.02)
+}
+
+.search-card-main h5 {
+  color: var(--primary-color);
+  margin: 1rem 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.search-card-img {
+  width: 40%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 0.2rem 0 0 0.2rem;
+}
+
+.search-card-desc {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+.card-details {
+  padding: 0 0.8rem;
+}
+
+/********** <------ Contact Section CSS -----------> **************/
+
+.contact-main {
+  display: flex;
+  margin: 2rem 0;
+}
+
+.contact-details {
+  width: 100%;
+}
+
+.contact-details-fields {
+  margin: 1rem;
+  color: var(--secondary-color);
+}
+
+
+.contact-details .social {
+  display: flex;
+  justify-content: center;
+}
+
+.form-div {
+  width: 100%;
+}
+
+
+/*********************  Default-CSS  End *********************/

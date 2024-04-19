@@ -121,6 +121,32 @@ $(document).ready(function () {
     }, 2000);
   })
 
+  // Get news-search input query
+  getSearchResult(function (search_results) {
+    console.log(search_results)
+    let newssearch = $('#seached-news')
+    newssearch.empty()
+    if (search_results.length > 0) {
+      search_results.forEach(news => {
+        let searched = `
+        <a href=${news.url} target="_blank">
+              <div class="search-card-main">
+                <img src=${news.urlToImage} alt="newsimg" class="search-card-img"/>
+                <div class="card-details">
+                  <p class="news-cardtag">${news.source}</p>
+                  <h5>${news.title}</h5>
+                  <p class="search-card-desc">${news.description}</p>
+                </div>
+              </div>
+        </a>
+        `
+        newssearch.append(searched)
+      });
+    } else {
+      newssearch.html('<p>No news found for the topic</p>')
+    }
+  })
+
   // Hero Section News Carousel
   let heronews = $('#hero-news');
   herodata.forEach(news => {
@@ -225,6 +251,8 @@ $(document).ready(function () {
 
 
 
+
+
   // Owl Carousel News Section
   $(".news-section").owlCarousel({
     margin: 12,
@@ -277,32 +305,6 @@ $(document).ready(function () {
   })
 
 
-  // Get news-search input query
-  getSearchResult(function (search_results) {
-    console.log(search_results)
-    let newssearch = $('#seached-news')
-    newssearch.empty()
-    if (search_results.length > 0) {
-      search_results.forEach(news => {
-        let searched = `
-        <a href=${news.url} target="_blank">
-              <div class="search-card-main">
-                <img src=${news.urlToImage} alt="newsimg" class="search-card-img"/>
-                <div class="card-details">
-                  <p class="news-cardtag">${news.source}</p>
-                  <h5>${news.title}</h5>
-                  <p class="search-card-desc">${news.description}</p>
-                </div>
-              </div>
-        </a>
-        `
-        newssearch.append(searched)
-      });
-    } else {
-      newssearch.html('<p>No news found for the topic</p>')
-    }
-  })
-
 })
 
 
@@ -317,7 +319,7 @@ function closeSideMenu() {
 function getSearchResult(callback) {
   $('#basic-addon2').on('click', function () {
     let query = $('#news-search').val()
-    // console.log(query)
+    console.log(query)
     if (query.length >= 0) {
       if (query.length > 2) {
         $.ajax({

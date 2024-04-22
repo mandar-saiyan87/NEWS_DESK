@@ -121,6 +121,8 @@ $(document).ready(function () {
     }, 2000);
   })
 
+  // signup form prevent close on submit
+
   // Get news-search input query
   getSearchResult(function (search_results) {
     console.log(search_results)

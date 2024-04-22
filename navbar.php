@@ -1,18 +1,73 @@
 <?php
-include('db/database.php');
+session_start();
+include('config/database.php');
+
+// Signup user
 if (isset($_POST['signup'])) {
   extract($_POST);
-  $pass_hash = password_hash($password, PASSWORD_DEFAULT);
+  // echo "<pre>";
+  // print_r($_POST);
 
-  $sql_query = "insert into users (type, email, password) values ('general', '$email', '$pass_hash')";
+  if (strlen($email) > 5 && strlen($password) > 5 && $confirm === $password) {
+    $pass_hash = password_hash($password, PASSWORD_DEFAULT);
 
-  $res = $db_connected->query($sql_query);
-  if ($res) {
-    $_SESSION['signup_success'] = true;
+    // check if already exist
+    $email_exist = "select * from users where email='$email'";
+    $exist_res = $db_connected->query($email_exist);
+
+    if ($exist_res->num_rows > 0) {
+      $_SESSION['signup_userexist'] = true;
+    } else {
+      $sql_query = "insert into users (type, email, password) values ('subscribe', '$email', '$pass_hash')";
+
+      $res = $db_connected->query($sql_query);
+      if ($res) {
+        $_SESSION['signup_success'] = true;
+      } else {
+        $_SESSION['signup_failure'] = true;
+      }
+    }
   } else {
-    $_SESSION['signup_failure'] = true;
+    // echo "Please enter valid email, password";
+    $_SESSION['signup_badcreds'] = true;
   }
   header("LOCATION: index.php");
+  exit;
+}
+
+
+
+// Login user
+if (isset($_POST['login'])) {
+  extract($_POST);
+
+  $sql_query = "select * from users where email='$email'";
+  $res = $db_connected->query($sql_query);
+  // echo "<pre>";
+  // print_r($res);
+  $userData = $res->fetch_all(MYSQLI_ASSOC);
+  if (empty($userData)) {
+    $_SESSION['usernotexist'] = true;
+  } else {
+    if (password_verify($password, $userData[0]['password'])) {
+      // echo "<pre>";
+      // print_r($userData);
+      $_SESSION['is_user_loggedin'] = true;
+      $_SESSION['user_data'] = $userData;
+      header('LOCATION: exclusive.php');
+      exit;
+    } else {
+      $_SESSION['wrongpasswd'] = true;
+    }
+  }
+}
+
+
+// Logout user
+if (isset($_POST['logout'])) {
+  session_unset();
+  session_destroy();
+  header("Location: index.php");
   exit;
 }
 
@@ -54,7 +109,7 @@ if (isset($_POST['signup'])) {
         <a href="faq.php">
           <li class="nav-button">FAQ</li>
         </a>
-        <a href="membership.php">
+        <a href="exclusive.php">
           <li class="nav-button">Member's Exclusive</li>
         </a>
       </ul>
@@ -63,10 +118,23 @@ if (isset($_POST['signup'])) {
       <div class="search" data-bs-toggle="modal" data-bs-target="#searchModal">
         <img src="assets/images/icons8-search.svg" alt="searchico">
       </div>
-      <div class="auth-btn">
+      <?php
+      if (isset($_SESSION['is_user_loggedin'])) {
+        echo '
+            <form id="logoutForm" action="index.php" method="post">
+    <button class="common_btn" type="submit" name="logout" id="logoutBtn">Logout</button>
+</form>
+        ';
+      } else {
+        echo '
+              <div class="auth-btn">
         <button class="common_btn" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
         <button class="common_btn" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</button>
       </div>
+        ';
+      }
+
+      ?>
       <div class="hbmenu">
         <img src="assets/images/icons8-hamburger-menu.svg" alt="menu">
       </div>
@@ -110,7 +178,7 @@ if (isset($_POST['signup'])) {
         <a href="faq.php">
           <li class="nav-button">FAQ</li>
         </a>
-        <a href="membership.php">
+        <a href="exclusive.php">
           <li class="nav-button">Member's Exclusive</li>
         </a>
       </ul>
@@ -132,17 +200,17 @@ if (isset($_POST['signup'])) {
           <h1 class="modal-title fs-5" id="exampleModalLabel">Login</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form>
+        <form action="index.php" method="post">
           <div class="modal-body">
 
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Email address</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
               <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">Password</label>
-              <input type="password" class="form-control" id="exampleInputPassword1">
+              <input type="password" name="password" class="form-control" id="exampleInputPassword1">
             </div>
             <div class="mb-3 form-check">
               <input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -153,7 +221,7 @@ if (isset($_POST['signup'])) {
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Log In</button>
+            <button type="submit" name="login" class="btn btn-primary">Log In</button>
           </div>
         </form>
       </div>
@@ -169,7 +237,7 @@ if (isset($_POST['signup'])) {
           <h1 class="modal-title fs-5" id="exampleModalLabel">Sign Up</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="index.php" method="post">
+        <form action="index.php" method="post" id='signUpForm'>
           <div class="modal-body">
 
             <div class="mb-3">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 19, 2024 at 03:42 PM
+-- Generation Time: Apr 22, 2024 at 04:46 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -39,9 +39,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `type`, `email`, `password`) VALUES
-(21, 'ndadmin', 'admin@newsdesk.com', '$2y$10$xRH7WgvacgOGddKsaK6uZOCRIMRGutCHCOnfw6G8hMqQbJnOlp10e'),
-(61, 'general', 'user1@gmail.com', '$2y$10$5w.qsnEdYR5euKdjNWQq4uOWMfuDzbnA.sqY0YvQKEf4u2NNmWYti'),
-(64, 'general', 'user2@gmail.com', '$2y$10$2dEvEJhTANiGyMhbhh3G4.XJ7y7XXiXT7xkw6c80VRg5FnNVmCuu2');
+(89, 'subscriber', 'user1@gmail.com', '$2y$10$gdXWHlExMOFcPlXY9xHGnOzZ.WjjrpXpMXfMtjXXK8zIp4Uh5V4H2'),
+(90, 'subscriber', 'user2@gmail.com', '$2y$10$Lt3LbECPCNWqQFiFD9EH4.AWLdh3LCZH7zV84hTRImp004M3aX3UK'),
+(94, 'admin', 'admin@newsdesk.com', '$2y$10$shuSmugxg5Rc5mVagnrtx.GZp0/bZfUZ/e7fYAcunmbag2/LDW6eG');
 
 --
 -- Indexes for dumped tables
@@ -61,7 +61,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

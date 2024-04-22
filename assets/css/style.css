@@ -301,6 +301,19 @@ img {
   z-index: 10;
 }
 
+.messages-warning {
+  display: flex;
+  position: absolute;
+  top: 1%;
+  max-width: max-content;
+  background-color: rgb(230, 227, 140);
+  color: rgb(175, 157, 57);
+  font-size: large;
+  font-weight: 600;
+  padding: 0.5rem 2rem;
+  z-index: 10;
+}
+
 /************************** NAVBAR ***********************************************/
 
 
@@ -356,6 +369,11 @@ img {
 .footer-logo .ldesc {
   font-weight: 400;
   font-size: small;
+}
+
+.logout p {
+  font-weight: 700;
+  cursor: pointer;
 }
 
 

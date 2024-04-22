@@ -16,6 +16,7 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/responsive.css">
+  <script src="assets/js/main.js"></script>
   <title>News Desk - Latest News, Anytime, Anywhere</title>
 </head>
 
@@ -30,10 +31,9 @@
 
     <!-- Search News Modal Start -->
     <?php
-    include('searchNewsModal.php')
+    include('searchnews.php')
     ?>
-    <!-- Search News Modal End -->
-
+    <!-- Search News Modal Start -->
 
     <!-- Main Content Start -->
     <div class="main_content">

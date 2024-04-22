@@ -16,6 +16,7 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/responsive.css">
+  <script src="assets/js/main.js"></script>
   <title>News Desk - Latest News, Anytime, Anywhere</title>
 </head>
 
@@ -30,101 +31,9 @@
 
     <!-- Search News Modal Start -->
     <?php
-    include('searchNewsModal.php')
+    include('searchnews.php')
     ?>
     <!-- Search News Modal End -->
-
-    <!-- Messages Start -->
-    <?php
-    // Signup success
-    if (isset($_SESSION['signup_success'])) {
-      echo '
-    <script>
-        setTimeout(() => {
-            $(".messages-success").css("display", "none")
-        }, 2000);
-    </script>
-    <div class="messages-success">
-        <p>User Created Successfully</p>
-    </div>
-    ';
-      // clear session
-      unset($_SESSION['signup_success']);
-
-
-      // Signup Failure  
-    } elseif (isset($_SESSION['signup_failure'])) {
-      echo '
-    <script>
-        setTimeout(() => {
-            $(".messages-error").css("display", "none")
-        }, 2000);
-    </script>
-    <div class="messages-error">
-        <p>Something went wrong, Please try again!</p>
-    </div>
-    ';
-      // clear session
-      unset($_SESSION['signup_failure']);
-
-      // Signup bad credentials
-    } elseif (isset($_SESSION['signup_badcreds'])) {
-      echo '
-    <script>
-        setTimeout(() => {
-            $(".messages-warning").css("display", "none")
-        }, 2000);
-    </script>
-    <div class="messages-warning">
-        <p>Please enter valid email and password</p>
-    </div>
-    ';
-      // clear session
-      unset($_SESSION['signup_badcreds']);
-
-      // Signup user exist
-    } elseif (isset($_SESSION['signup_userexist'])) {
-      echo '
-    <script>
-        setTimeout(() => {
-            $(".messages-warning").css("display", "none")
-        }, 2000);
-    </script>
-    <div class="messages-warning">
-        <p>User already exist</p>
-    </div>
-    ';
-      // clear session
-      unset($_SESSION['signup_userexist']);
-    } elseif (isset($_SESSION['usernotexist'])) {
-      echo '
-    <script>
-        setTimeout(() => {
-            $(".messages-warning").css("display", "none")
-        }, 2000);
-    </script>
-    <div class="messages-warning">
-        <p>User Does not exist</p>
-    </div>
-    ';
-      // clear session
-      unset($_SESSION['usernotexist']);
-    } elseif (isset($_SESSION['wrongpasswd'])) {
-      echo '
-    <script>
-        setTimeout(() => {
-            $(".messages-error").css("display", "none")
-        }, 2000);
-    </script>
-    <div class="messages-error">
-        <p>Wrong email or password</p>
-    </div>
-    ';
-      // clear session
-      unset($_SESSION['wrongpasswd']);
-    }
-    ?>
-    <!-- Messages End -->
 
     <!-- Main Content Start -->
     <div class="main_content">
@@ -202,6 +111,7 @@
     ?>
     <!-- Footer Section End -->
   </div>
+
   <script src="assets/js/jQuery v3.7.1.min.js"></script>
   <script src="assets/js/owl.carousel.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

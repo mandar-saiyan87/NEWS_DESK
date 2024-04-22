@@ -103,7 +103,7 @@ $(document).ready(function () {
     let name = $('#name').val()
     let email = $('#email').val()
     let message = $('#message').val()
-    console.log(`name: ${name}, email: ${email}, message: ${message}`)
+    // console.log(`name: ${name}, email: ${email}, message: ${message}`)
     if (name.length > 2 && email.length > 2 && message.length > 2) {
       name = $('#name').val('')
       email = $('#email').val('')
@@ -120,8 +120,6 @@ $(document).ready(function () {
       messageDiv.html('')
     }, 2000);
   })
-
-  // signup form prevent close on submit
 
   // Get news-search input query
   getSearchResult(function (search_results) {
@@ -147,6 +145,25 @@ $(document).ready(function () {
     } else {
       newssearch.html('<p>No news found for the topic</p>')
     }
+  })
+
+  // SignUp Function
+  signUp()
+
+  // Login Function
+  login()
+
+
+  // User logout function
+  userLogout()
+
+  // Modal clear
+  $('#signUpModal').on('hidden.bs.modal', function () {
+    $(':input').val('');
+  })
+
+  $('#loginModal').on('hidden.bs.modal', function () {
+    $(':input').val('');
   })
 
   // Hero Section News Carousel
@@ -253,8 +270,6 @@ $(document).ready(function () {
 
 
 
-
-
   // Owl Carousel News Section
   $(".news-section").owlCarousel({
     margin: 12,
@@ -343,6 +358,191 @@ function getSearchResult(callback) {
   })
 }
 
+function signUp() {
+  $('#signUp').on('click', function () {
+    let email = $('.useremail').val()
+    let passwd = $('.passwd').val()
+    let confpasswd = $('.confpasswd').val()
+    // console.log(email, passwd, confpasswd)
+    if (email.length > 2 && passwd.length > 2 && confpasswd === passwd) {
+      $.ajax({
+        crossDomain: true,
+        url: `http://localhost/NewsPortal/api/auth.php`,
+        method: 'POST',
+        data: {
+          action: 'signup',
+          email: email,
+          passwd: passwd,
+        },
+        dataType: 'json',
+        success: function (response) {
+          // console.log(response)
+          $('.useremail').val('')
+          $('.passwd').val('')
+          $('.confpasswd').val('')
+          $('#signUpModal').modal("hide");
+          $('#signUpModal').removeClass('fade');
+          $('.modal-backdrop').remove();
+          $('body').removeClass('modal-open');
+          if (response.code === 200) {
+            $('#success-message').addClass('messages-success'),
+              $('#success-message').html('User Signed up successfully')
+            setTimeout(() => {
+              $('#success-message').removeClass('messages-success'),
+                $('#success-message').html('')
+            }, 1500);
+          } else if (response.code === 400) {
+            $('#success-message').addClass('messages-warning '),
+              $('#success-message').html('User already exist')
+            setTimeout(() => {
+              $('#success-message').removeClass('messages-warning'),
+                $('#success-message').html('')
+            }, 1500);
+          } else {
+            $('#error-messages').addClass('messages-error'),
+              $('#error-messages').html('Something went wrong, Please try again!')
+            setTimeout(() => {
+              $('#error-messages').removeClass('messages-error'),
+                $('#error-messages').html('')
+            }, 1500);
+          }
+        },
+        error: function (error) {
+          console.error('Error signing user:', error);
+          $('#error-messages').addClass('messages-error'),
+            $('#error-messages').html('Something went wrong, Please try again!')
+          setTimeout(() => {
+            $('#error-messages').removeClass('messages-error'),
+              $('#error-messages').html('')
+          }, 1500);
+        }
+      })
+    } else {
+      $('.error-messages').addClass('messages-error'),
+        $('.error-messages').html('Please enter valid email, password and confirm password')
+      setTimeout(() => {
+        $('.error-messages').removeClass('messages-error'),
+          $('.error-messages').html('')
+      }, 1500);
+    }
+  })
+}
+
+function login() {
+  $('#login').on('click', function () {
+    let email = $('.loginemail').val()
+    let passwd = $('.loginpasswd').val()
+    // console.log(email, passwd)
+    if (email && passwd) {
+      $.ajax({
+        crossDomain: true,
+        url: `http://localhost/NewsPortal/api/auth.php`,
+        method: 'POST',
+        data: {
+          action: 'login',
+          email: email,
+          passwd: passwd,
+        },
+        dataType: 'json',
+        success: function (response) {
+          // console.log(response)
+          $('.loginemail').val('')
+          $('.loginpasswd').val('')
+          $('#loginModal').modal("hide");
+          $('#loginModal').removeClass('fade');
+          $('.modal-backdrop').remove();
+          $('body').removeClass('modal-open');
+          if (response.code === 200) {
+            // console.log(response)
+            sessionStorage.setItem('userid', response.userId)
+            sessionStorage.setItem('useremail', response.userEmail)
+            sessionStorage.setItem('usertype', response.userType)
+            $('#success-message').addClass('messages-success'),
+              $('#success-message').html('User logged in successfully')
+            setTimeout(() => {
+              $('#success-message').removeClass('messages-success'),
+                $('#success-message').html('')
+            }, 2500);
+            window.location.href = 'exclusive.php'
+          } else if (response.code === 404) {
+            $('#success-message').addClass('messages-warning '),
+              $('#success-message').html('User does not exist')
+            setTimeout(() => {
+              $('#success-message').removeClass('messages-warning'),
+                $('#success-message').html('')
+            }, 1500);
+          } else if (response.code === 401) {
+            $('#success-message').addClass('messages-error'),
+              $('#success-message').html('Wrong username / password')
+            setTimeout(() => {
+              $('#success-message').removeClass('messages-error'),
+                $('#success-message').html('')
+            }, 1500);
+          } else {
+            $('.error-messages').addClass('messages-error'),
+              $('.error-messages').html('Something went wrong, please try again!')
+            setTimeout(() => {
+              $('.error-messages').removeClass('messages-error'),
+                $('.error-messages').html('')
+            }, 1500);
+          }
+        },
+        error: function (error) {
+          console.error('Error login user:', error);
+          $('#error-messages').addClass('messages-error'),
+            $('#error-messages').html('Something went wrong, Please try again!')
+          setTimeout(() => {
+            $('#error-messages').removeClass('messages-error'),
+              $('#error-messages').html('')
+          }, 1500);
+        }
+      })
+    } else {
+      $('.error-messages').addClass('messages-error'),
+        $('.error-messages').html('Please enter valid email, password')
+      setTimeout(() => {
+        $('.error-messages').removeClass('messages-error'),
+          $('.error-messages').html('')
+      }, 1500);
+    }
+  })
+}
+
+// user logout function
+function userLogout() {
+  $('.logoutbtn').on('click', function () {
+    $.ajax({
+      crossDomain: true,
+      url: `http://localhost/NewsPortal/api/auth.php`,
+      method: 'POST',
+      data: {
+        action: 'logout',
+      },
+      success: function (response) {
+        if (response.code === 200) {
+          sessionStorage.removeItem('userid')
+          sessionStorage.removeItem('useremail')
+          sessionStorage.removeItem('usertype')
+          // window.location.href = 'index.php'
+        }
+        window.location.href = 'index.php'
+      },
+      error: function (error) {
+        console.error('Error login user:', error);
+        $('#error-messages').addClass('messages-error'),
+          $('#error-messages').html('Something went wrong, Please try again!')
+        setTimeout(() => {
+          $('#error-messages').removeClass('messages-error'),
+            $('#error-messages').html('')
+        }, 1500);
+      }
+    })
+  })
+}
+
+//modal values clear
+
+
 // Show Spinner
 function showSpinner() {
   $('.loading-spinner').css('display', 'flex')
@@ -352,6 +552,7 @@ function showSpinner() {
 function hideSpinner() {
   $('.loading-spinner').css('display', 'none')
 }
+
 
 
 

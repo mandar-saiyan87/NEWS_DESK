@@ -115,6 +115,7 @@
     align-items: center;
     gap: 1.5rem;
   }
+
 }
 
 @media (max-width: 575px) {
@@ -344,6 +345,19 @@
     flex-direction: column;
     row-gap: 3rem;
   }
+
+    .messages-success {
+      display: flex;
+      position: absolute;
+      top: 2%;
+      max-width: max-content;
+      background-color: rgb(156, 219, 156);
+      color: rgb(11, 87, 11);
+      font-size: large;
+      font-weight: 600;
+      padding: 0.5rem 2rem;
+      z-index: 10;
+    }
 
 }
 

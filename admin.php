@@ -1,3 +1,15 @@
+<?php
+session_start();
+// Check if the user is logged in
+
+if (!isset($_SESSION['logged-in']) || $_SESSION['logged-in'] !== true || $_SESSION['usertype'] !== 'admin') {
+  // Redirect to the index page
+  header('LOCATION: index.php');
+  exit;
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,39 +41,41 @@
     ?>
     <!-- Header End -->
 
-
     <!-- Search News Modal Start -->
     <?php
     include('searchnews.php')
     ?>
-    <!- <!-- Search News Modal Start -->
+    <!-- Search News Modal Start -->
 
-      <!-- Main Content Start -->
-      <div class="main_content">
-        <!-- FAQ Section Start -->
-        <section id="faq" class="container text-center">
-          <h3 class="section-title">Frequently Asked Questions</h3>
-          <p class="wow fadeIn section-description hide" data-wow-delay="0.2s">Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Rem eum illo iste.
-            Expedita optio eius neque
-            praesentium nemo consequatur illo fugit ex odit! Temporibus labore dolorem ad sunt. Facilis voluptatum
-            voluptas consequuntur veritatis nobis corrupti, debitis hic quam accusantium ex! Quis provident doloremque
-            quidem architecto!</p>
-          <div class="wow fadeIn faq-accordion-container hide" data-wow-delay="0.4s">
-            <div class="accordion accordion-flush" id="accordionExample">
+    <!-- Main Content Start -->
+    <div class="main_content">
 
-            </div>
-          </div>
-        </section>
-        <!-- FAQ Section End -->
+      <!-- User Section Start -->
+      <section id="exclusive" class="container text-center">
+        <div id="" class="">
+          <h3 class="section-title">Welcome <span id="loggeduser"></span></h3>
+          <p class="wow fadeIn section-description hide" data-wow-delay="0.2s">Lorem ipsum dolor sit amet consectetur,
+            adipisicing elit. Sapiente voluptatem,
+            dolores deleniti quisquam qui fugit, nisi repellendus illum nostrum obcaecati unde doloremque sunt
+            architecto provident velit autem, assumenda quos eum fuga rem iusto fugiat! Doloribus, blanditiis possimus
+            cumque asperiores vitae nihil maxime quasi quas, sapiente cum ipsam nobis temporibus, nesciunt molestias
+            quos neque? Quasi harum fuga dolorem eum id voluptatibus exercitationem unde quaerat labore eaque?</p>
+        </div>
+        <div id="">
+          <a href="add-news.php">
+            <button class="common_btn" style="margin-top: 1.5rem;">Add News</button>
+          </a>
+        </div>
+      </section>
+      <!-- User Section End -->
+    </div>
+    <!-- Main Content End -->
 
-        <!-- Footer Section Start -->
-        <?php
-        include('footer.php')
-        ?>
-        <!-- Footer Section End -->
-      </div>
-      <!-- Main Content End -->
+    <!-- Footer Section Start -->
+    <?php
+    include('footer.php')
+    ?>
+    <!-- Footer Section End -->
   </div>
 
   <script src="assets/js/jQuery v3.7.1.min.js"></script>

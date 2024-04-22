@@ -2,7 +2,7 @@
 session_start();
 // Check if the user is logged in
 
-if (!isset($_SESSION['logged-in']) || $_SESSION['logged-in'] !== true) {
+if (!isset($_SESSION['logged-in']) || $_SESSION['logged-in'] !== true || $_SESSION['usertype'] !== 'admin') {
   // Redirect to the index page
   header('LOCATION: index.php');
   exit;
@@ -29,6 +29,26 @@ if (!isset($_SESSION['logged-in']) || $_SESSION['logged-in'] !== true) {
   <link rel="stylesheet" href="assets/css/responsive.css">
   <script src="assets/js/main.js"></script>
   <title>News Desk - Latest News, Anytime, Anywhere</title>
+  <script src="https://cdn.tiny.cloud/1/syfbmkaync0xtapsys25btokoji618252vvno4dendv93jse/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+  <script>
+    tinymce.init({
+      selector: 'textarea',
+      plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
+      toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+      tinycomments_mode: 'embedded',
+      tinycomments_author: 'Author name',
+      mergetags_list: [{
+          value: 'First.Name',
+          title: 'First Name'
+        },
+        {
+          value: 'Email',
+          title: 'Email'
+        },
+      ],
+      ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+    });
+  </script>
 </head>
 
 <body>
@@ -50,18 +70,14 @@ if (!isset($_SESSION['logged-in']) || $_SESSION['logged-in'] !== true) {
     <div class="main_content">
 
       <!-- User Section Start -->
-      <section id="exclusive" class="container text-center">
-        <div id="not-logged">
-          <h3 class="section-title">Welcome <?php echo $_SESSION['email'] ?></span></h3>
-          <p class="wow fadeIn section-description hide" data-wow-delay="0.2s">Lorem ipsum dolor sit amet consectetur,
-            adipisicing elit. Sapiente voluptatem,
-            dolores deleniti quisquam qui fugit, nisi repellendus illum nostrum obcaecati unde doloremque sunt
-            architecto provident velit autem, assumenda quos eum fuga rem iusto fugiat! Doloribus, blanditiis possimus
-            cumque asperiores vitae nihil maxime quasi quas, sapiente cum ipsam nobis temporibus, nesciunt molestias
-            quos neque? Quasi harum fuga dolorem eum id voluptatibus exercitationem unde quaerat labore eaque?</p>
-        </div>
-        <div id="">
-
+      <section id="exclusive" class="container">
+        <div id="" class="">
+          <h3 class="section-title">Add News (For members only)</span></h3>
+          <form action="">
+            <input type="text" class="form-control" style="margin: 1rem 0;" placeholder="News title..." aria-label="Username" aria-describedby="basic-addon1">
+            <input type="text" class="form-control" style="margin: 1rem 0;" placeholder="image url..." aria-label="Username" aria-describedby="basic-addon1">
+            <textarea id="newstext" name="newscontent" id="" cols="100" rows="10"></textarea>
+          </form>
         </div>
       </section>
       <!-- User Section End -->

@@ -1,76 +1,5 @@
 <?php
 session_start();
-include('config/database.php');
-
-// Signup user
-if (isset($_POST['signup'])) {
-  extract($_POST);
-  // echo "<pre>";
-  // print_r($_POST);
-
-  if (strlen($email) > 5 && strlen($password) > 5 && $confirm === $password) {
-    $pass_hash = password_hash($password, PASSWORD_DEFAULT);
-
-    // check if already exist
-    $email_exist = "select * from users where email='$email'";
-    $exist_res = $db_connected->query($email_exist);
-
-    if ($exist_res->num_rows > 0) {
-      $_SESSION['signup_userexist'] = true;
-    } else {
-      $sql_query = "insert into users (type, email, password) values ('subscribe', '$email', '$pass_hash')";
-
-      $res = $db_connected->query($sql_query);
-      if ($res) {
-        $_SESSION['signup_success'] = true;
-      } else {
-        $_SESSION['signup_failure'] = true;
-      }
-    }
-  } else {
-    // echo "Please enter valid email, password";
-    $_SESSION['signup_badcreds'] = true;
-  }
-  header("LOCATION: index.php");
-  exit;
-}
-
-
-
-// Login user
-if (isset($_POST['login'])) {
-  extract($_POST);
-
-  $sql_query = "select * from users where email='$email'";
-  $res = $db_connected->query($sql_query);
-  // echo "<pre>";
-  // print_r($res);
-  $userData = $res->fetch_all(MYSQLI_ASSOC);
-  if (empty($userData)) {
-    $_SESSION['usernotexist'] = true;
-  } else {
-    if (password_verify($password, $userData[0]['password'])) {
-      // echo "<pre>";
-      // print_r($userData);
-      $_SESSION['is_user_loggedin'] = true;
-      $_SESSION['user_data'] = $userData;
-      header('LOCATION: exclusive.php');
-      exit;
-    } else {
-      $_SESSION['wrongpasswd'] = true;
-    }
-  }
-}
-
-
-// Logout user
-if (isset($_POST['logout'])) {
-  session_unset();
-  session_destroy();
-  header("Location: index.php");
-  exit;
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -78,11 +7,25 @@ if (isset($_POST['logout'])) {
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <!-- Owl Carousel -->
+  <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="assets/css/animatenew.css">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <script src="assets/js/main.js"></script>
   <title>News Desk - Latest News, Anytime, Anywhere</title>
 </head>
 
 <body>
+
   <!-- Navbar Start -->
   <div class="nav-header">
     <a href="index.php">
@@ -119,22 +62,23 @@ if (isset($_POST['logout'])) {
         <img src="assets/images/icons8-search.svg" alt="searchico">
       </div>
       <?php
-      if (isset($_SESSION['is_user_loggedin'])) {
+      if (isset($_SESSION['logged-in'])) {
         echo '
-            <form id="logoutForm" action="index.php" method="post">
-    <button class="common_btn" type="submit" name="logout" id="logoutBtn">Logout</button>
-</form>
-        ';
-      } else {
-        echo '
-              <div class="auth-btn">
-        <button class="common_btn" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
-        <button class="common_btn" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</button>
+                <div class="auth-btn">
+        <button class="common_btn logoutbtn">Logout</button>
       </div>
-        ';
-      }
+          ';
+      } else {
 
+        echo '
+                  <div class="auth-btn">
+               <button class="common_btn" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+            <button class="common_btn" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</button>
+      </div>
+          ';
+      }
       ?>
+
       <div class="hbmenu">
         <img src="assets/images/icons8-hamburger-menu.svg" alt="menu">
       </div>
@@ -182,10 +126,23 @@ if (isset($_POST['logout'])) {
           <li class="nav-button">Member's Exclusive</li>
         </a>
       </ul>
-      <div class="mobileauthbtn">
+      <?php
+      if (isset($_SESSION['logged-in'])) {
+        echo '
+                <div class="mobileauthbtn">
+        <button class="mobilecommon_btn logoutbtn">Logout</button>
+      </div>
+          ';
+      } else {
+        echo '
+                  <div class="mobileauthbtn">
         <button class="mobilecommon_btn" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
         <button class="mobilecommon_btn" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</button>
       </div>
+          ';
+      }
+      ?>
+
     </div>
   </div>
   <!-- Overlay Mobile Menu End -->
@@ -200,30 +157,33 @@ if (isset($_POST['logout'])) {
           <h1 class="modal-title fs-5" id="exampleModalLabel">Login</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="index.php" method="post">
-          <div class="modal-body">
-
+        <div class="modal-body">
+          <form>
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Email address</label>
-              <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <input type="email" class="form-control loginemail" id="exampleInputEmail1" aria-describedby="emailHelp">
               <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">Password</label>
-              <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+              <input type="password" class="form-control loginpasswd" id="exampleInputPassword1">
             </div>
             <div class="mb-3 form-check">
               <input type="checkbox" class="form-check-input" id="exampleCheck1">
               <label class="form-check-label" for="exampleCheck1">Remember Me</label>
             </div>
+          </form>
+          <p class="suggest">Not registered yet? <Span class="option" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</Span></p>
+        </div>
+        <!---- Messages start ------>
+        <div class='error-messages'>
 
-            <p class="suggest">Not registered yet? <Span class="option" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</Span></p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" name="login" class="btn btn-primary">Log In</button>
-          </div>
-        </form>
+        </div>
+        <!---- Messages end ------>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" id='login' class="btn btn-primary">Log In</button>
+        </div>
       </div>
     </div>
   </div>
@@ -237,34 +197,51 @@ if (isset($_POST['logout'])) {
           <h1 class="modal-title fs-5" id="exampleModalLabel">Sign Up</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="index.php" method="post" id='signUpForm'>
-          <div class="modal-body">
-
+        <div class="modal-body">
+          <form>
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Email address</label>
-              <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <input type="email" class="form-control useremail" id="exampleInputEmail1" aria-describedby="emailHelp">
               <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">Password</label>
-              <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+              <input type="password" class="form-control passwd" id="exampleInputPassword1">
             </div>
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
-              <input type="password" name="confirm" class="form-control" id="exampleInputPassword1">
+              <input type="password" class="form-control confpasswd" id="exampleInputPassword1">
             </div>
+          </form>
+          <p class="suggest">Already have an account? <Span class="option" data-bs-toggle="modal" data-bs-target="#loginModal">Log In</Span></p>
+        </div>
+        <!---- Messages start ------>
+        <div class='error-messages'>
 
-            <p class="suggest">Already have an account? <Span class="option" data-bs-toggle="modal" data-bs-target="#loginModal">Log In</Span></p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" name="signup" class="btn btn-primary">Sign Up</button>
-          </div>
-        </form>
+        </div>
+        <!---- Messages end ------>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" id='signUp' class="btn btn-primary">Sign Up</button>
+        </div>
       </div>
     </div>
   </div>
   <!-- Sign Up Modal End -->
+
+  <!---- Messages start ------>
+  <div id='success-message' class=''>
+
+  </div>
+  <!---- Messages end ------>
+
+
+  <script src="assets/js/jQuery v3.7.1.min.js"></script>
+  <script src="assets/js/owl.carousel.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+  <script src="assets/js/wow.js"></script>
+  <script src="assets/js/custom.js"></script>
 </body>
 
 </html>

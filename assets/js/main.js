@@ -3,7 +3,7 @@ class CustomNav extends HTMLElement {
     this.innerHTML = `
         <!-- Navbar Start -->
       <div class="nav-header">
-        <a href="index.php">
+        <a href="index.html">
           <div class="logo">
             <p class="lname">ND</p>
             <p class="ldesc">Anytime, Anywhere</p>
@@ -12,20 +12,23 @@ class CustomNav extends HTMLElement {
 
         <div>
           <ul class="nav-menu">
-            <a href="index.php">
+            <a href="index.html">
               <li class="nav-button">Home</li>
             </a>
-            <a href="about.php">
+            <a href="about.html">
               <li class="nav-button">About</li>
             </a>
-            <a href="contactUs.php">
+            <a href="contactUs.html">
               <li class="nav-button">Contact Us</li>
             </a>
-            <a href="membership.php">
+            <a href="membership.html">
               <li class="nav-button">Membership</li>
             </a>
-            <a href="faq.php">
+            <a href="faq.html">
               <li class="nav-button">FAQ</li>
+            </a>
+                        <a href="exclusive.html">
+              <li class="nav-button">Member's Exclusive</li>
             </a>
           </ul>
         </div>
@@ -65,21 +68,24 @@ class CustomNav extends HTMLElement {
               <p class="close_btn">X</p>
             </div>
             <ul class="mobilemenu">
-              <a href="index.php">
+              <a href="index.html">
                 <li class="nav-button">Home</li>
               </a>
-              <a href="about.php">
+              <a href="about.html">
                 <li class="nav-button">About</li>
               </a>
-              <a href="contactUs.php">
+              <a href="contactUs.html">
                 <li class="nav-button">Contact Us</li>
               </a>
-              <a href="membership.php">
+              <a href="membership.html">
                 <li class="nav-button">Membership</li>
               </a>
-              <a href="faq.php">
+              <a href="faq.html">
                 <li class="nav-button">FAQ</li>
               </a>
+                                      <a href="exclusive.html">
+              <li class="nav-button">Member's Exclusive</li>
+            </a>
             </ul>
             <div class="mobileauthbtn">
               <button class="mobilecommon_btn" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
@@ -103,12 +109,12 @@ class CustomNav extends HTMLElement {
                 <form>
                   <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="email" class="form-control loginemail" id="exampleInputEmail1" aria-describedby="emailHelp">
                     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                   </div>
                   <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
+                    <input type="password" class="form-control loginpasswd" id="exampleInputPassword1">
                   </div>
                   <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -118,9 +124,14 @@ class CustomNav extends HTMLElement {
                 <p class="suggest">Not registered yet? <Span class="option" data-bs-toggle="modal"
                     data-bs-target="#signUpModal">Sign Up</Span></p>
               </div>
+        <!---- Messages start ------>
+        <div class='error-messages'>
+
+        </div>
+        <!---- Messages end ------>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Log In</button>
+                <button type="button" id='login' class="btn btn-primary">Log In</button>
               </div>
             </div>
           </div>
@@ -139,29 +150,40 @@ class CustomNav extends HTMLElement {
                 <form>
                   <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="email" class="form-control useremail" id="exampleInputEmail1" aria-describedby="emailHelp">
                     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                   </div>
                   <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
+                    <input type="password" class="form-control passwd" id="exampleInputPassword1">
                   </div>
                   <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
+                    <input type="password" class="form-control confpasswd" id="exampleInputPassword1">
                   </div>
                 </form>
                 <p class="suggest">Already have an account? <Span class="option" data-bs-toggle="modal"
                     data-bs-target="#loginModal">Log In</Span></p>
               </div>
+                     <!---- Messages start ------>
+        <div class='error-messages'>
+
+        </div>
+        <!---- Messages end ------>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Sign Up</button>
+                <button type="button" id='signUp' class="btn btn-primary">Sign Up</button>
               </div>
             </div>
           </div>
         </div>
         <!-- Sign Up Modal End -->
+
+        <!---- Messages start ------>
+        <div id='success-message' class=''>
+          
+        </div>
+        <!---- Messages end ------>
     `
   }
 }
@@ -173,7 +195,7 @@ class CustomFooter extends HTMLElement {
       <div class="main-footer-container wow fadeIn hide" data-wow-delay="0.5s">
         <div class="footer-misc">
           <div class="logo-desc">
-            <a href="index.php">
+            <a href="index.html">
               <div class="footer-logo">
                 <p class="lname">ND</p>
                 <p class="ldesc">Anytime, Anywhere</p>
@@ -187,10 +209,10 @@ class CustomFooter extends HTMLElement {
               <a href='#'>
                 <li>About Us</li>
               </a>
-              <a href='faq.php'>
+              <a href='faq.html'>
                 <li>FAQ</li>
               </a>
-              <a href='membership.php'>
+              <a href='membership.html'>
                 <li>Membership</li>
               </a>
               <a href='#'>

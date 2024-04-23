@@ -83,7 +83,7 @@ $res = $db_connected->query($get_news);
 
               foreach ($rows as $row) {
             ?>
-                <a href="news-details.php">
+                <a href="news-details.php?id=<?php echo $row['id'] ?>">
                   <div class="search-card-main">
                     <img src="<?php echo $row['imgurl'] ?>" alt="newsimg" class="search-card-img" />
                     <div class="card-details">

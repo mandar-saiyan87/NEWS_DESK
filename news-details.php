@@ -8,10 +8,17 @@ if (!isset($_SESSION['logged-in']) || $_SESSION['logged-in'] !== true) {
   header('LOCATION: index.php');
   exit;
 }
-$get_news = "select * from news";
-$res = $db_connected->query($get_news);
-// echo "<pre>";
-// print_r($res);
+
+if (isset($_GET['id'])) {
+  // echo $_GET['id'];
+  $id = $_GET['id'];
+  $get_news = "select * from news where id=$id";
+  $res = $db_connected->query($get_news);
+} else {
+  echo '<h1>No news here</h1>';
+  exit;
+}
+
 ?>
 
 <!DOCTYPE html>

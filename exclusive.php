@@ -73,7 +73,7 @@ $res = $db_connected->query($get_news);
             $rows = $res->fetch_all(MYSQLI_ASSOC);
 
             foreach ($rows as $row) {
-          ?> <a href="news-details.php">
+          ?> <a href="news-details.php?id=<?php echo $row['id'] ?>">
                 <div class="search-card-main">
                   <img src="<?php echo $row['imgurl'] ?>" alt="newsimg" class="search-card-img" />
                   <div class="card-details">

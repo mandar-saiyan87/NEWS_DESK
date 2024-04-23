@@ -1,19 +1,18 @@
 <?php
 // session_start();
-// Check if the user is logged in
+
 include('api/database.php');
-if (!isset($_SESSION['logged-in']) || $_SESSION['logged-in'] !== true || $_SESSION['usertype'] !== 'admin') {
+// Check if the user is logged in
+if (!isset($_SESSION['logged-in']) || $_SESSION['logged-in'] !== true) {
   // Redirect to the index page
   header('LOCATION: index.php');
   exit;
 }
-
 $get_news = "select * from news";
 $res = $db_connected->query($get_news);
 // echo "<pre>";
 // print_r($res);
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -54,53 +53,11 @@ $res = $db_connected->query($get_news);
 
     <!-- Main Content Start -->
     <div class="main_content">
-      <?php
-      include('messages/message.php')
-      ?>
 
       <!-- User Section Start -->
-      <section id="exclusive" class="">
-        <div id="" class="container text-center">
-          <h3 class="section-title">Welcome <span id="loggeduser"></span></h3>
-          <p class="wow fadeIn section-description hide" data-wow-delay="0.2s">Lorem ipsum dolor sit amet consectetur,
-            adipisicing elit. Sapiente voluptatem,
-            dolores deleniti quisquam qui fugit, nisi repellendus illum nostrum obcaecati unde doloremque sunt
-            architecto provident velit autem, assumenda quos eum fuga rem iusto fugiat! Doloribus, blanditiis possimus
-            cumque asperiores vitae nihil maxime quasi quas, sapiente cum ipsam nobis temporibus, nesciunt molestias
-            quos neque? Quasi harum fuga dolorem eum id voluptatibus exercitationem unde quaerat labore eaque?</p>
-
-          <a href="add-news.php">
-            <button class="common_btn" style="margin-top: 1.5rem;">Add News</button>
-          </a>
-        </div>
-        <div id="" class="exclusive-main">
-          <div id="" class="text-start">
-            <?php
-            if ($res->num_rows > 0) {
-              // echo "<pre>";
-              // print_r($res->fetch_all(MYSQLI_ASSOC));
-              $rows = $res->fetch_all(MYSQLI_ASSOC);
-
-              foreach ($rows as $row) {
-            ?>
-                <a href="news-details.php">
-                  <div class="search-card-main">
-                    <img src="<?php echo $row['imgurl'] ?>" alt="newsimg" class="search-card-img" />
-                    <div class="card-details">
-                      <p class="news-cardtag">NewsDesk</p>
-                      <h5><?php echo htmlspecialchars($row['title']) ?></h5>
-                      <p class="search-card-desc"><?php echo htmlspecialchars($row['subtitle']) ?></p>
-                    </div>
-                  </div>
-                </a>
-            <?php
-              }
-            }
-            ?>
-          </div>
-        </div>
+      <section id="exclusive">
+        News details page
       </section>
-
       <!-- User Section End -->
     </div>
     <!-- Main Content End -->

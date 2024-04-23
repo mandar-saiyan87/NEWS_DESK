@@ -55,8 +55,8 @@ $res = $db_connected->query($get_news);
     <div class="main_content">
 
       <!-- User Section Start -->
-      <section id="exclusive" class="container text-center">
-        <div id="not-logged">
+      <section id="exclusive">
+        <div id="not-logged" class="container text-center">
           <h3 class="section-title">Welcome <?php echo $_SESSION['email'] ?></span></h3>
           <p class="wow fadeIn section-description hide" data-wow-delay="0.2s">Lorem ipsum dolor sit amet consectetur,
             adipisicing elit. Sapiente voluptatem,
@@ -65,7 +65,7 @@ $res = $db_connected->query($get_news);
             cumque asperiores vitae nihil maxime quasi quas, sapiente cum ipsam nobis temporibus, nesciunt molestias
             quos neque? Quasi harum fuga dolorem eum id voluptatibus exercitationem unde quaerat labore eaque?</p>
         </div>
-        <div id="" class="text-start" style="margin: 2rem;">
+        <div id="" class="exclusive-main text-start">
           <?php
           if ($res->num_rows > 0) {
             // echo "<pre>";
@@ -73,15 +73,16 @@ $res = $db_connected->query($get_news);
             $rows = $res->fetch_all(MYSQLI_ASSOC);
 
             foreach ($rows as $row) {
-          ?>
-              <div class="search-card-main">
+          ?> <a href="news-details.php">
+                <div class="search-card-main">
                   <img src="<?php echo $row['imgurl'] ?>" alt="newsimg" class="search-card-img" />
-                <div class="card-details">
-                  <p class="news-cardtag">NewsDesk</p>
-                  <h5><?php echo htmlspecialchars($row['title']) ?></h5>
-                  <p class="search-card-desc"><?php echo htmlspecialchars($row['subtitle']) ?></p>
+                  <div class="card-details">
+                    <p class="news-cardtag">NewsDesk</p>
+                    <h5><?php echo htmlspecialchars($row['title']) ?></h5>
+                    <p class="search-card-desc"><?php echo htmlspecialchars($row['subtitle']) ?></p>
+                  </div>
                 </div>
-              </div>
+              </a>
           <?php
             }
           }

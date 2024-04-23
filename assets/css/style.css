@@ -767,6 +767,7 @@ img {
 
 .search-card-main {
   display: flex;
+  max-height: 300px;
   border-radius: 0.5rem;
   border: 1px solid var(--secondary-color);
   margin: 1rem 0;
@@ -791,8 +792,8 @@ img {
 }
 
 .search-card-img {
-  max-width: 45%;
-  height: 200px;
+  max-width: 40%;
+  height: auto;
   object-fit: cover;
   border-radius: 0.2rem 0 0 0.2rem;
 }
@@ -835,5 +836,9 @@ img {
   width: 100%;
 }
 
+/********** <------ Exclusive & ADMIN PAGE Card Section CSS -----------> **************/
+.exclusive-main {
+  padding: 2rem 10rem;
+}
 
 /*********************  Default-CSS  End *********************/

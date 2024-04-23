@@ -133,7 +133,7 @@ $(document).ready(function () {
               <div class="search-card-main">
                 <img src=${news.urlToImage} alt="newsimg" class="search-card-img"/>
                 <div class="card-details">
-                  <p class="news-cardtag">${news.source}</p>
+                  <p class="news-cardtag">${news.source.name}</p>
                   <h5>${news.title}</h5>
                   <p class="search-card-desc">${news.description}</p>
                 </div>

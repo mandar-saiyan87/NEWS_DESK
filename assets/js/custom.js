@@ -367,7 +367,7 @@ function signUp() {
     if (email.length > 2 && passwd.length > 2 && confpasswd === passwd) {
       $.ajax({
         crossDomain: true,
-        url: `http://localhost/NewsPortal/api/auth.php`,
+        url: `http://localhost/NEWS_DESK/api/auth.php`,
         method: 'POST',
         data: {
           action: 'signup',
@@ -380,10 +380,11 @@ function signUp() {
           $('.useremail').val('')
           $('.passwd').val('')
           $('.confpasswd').val('')
-          $('#signUpModal').modal("hide");
-          $('#signUpModal').removeClass('fade');
-          $('.modal-backdrop').remove();
-          $('body').removeClass('modal-open');
+          $('#signupdismiss').trigger('click');
+          // $('#signUpModal').modal("hide");
+          // $('#signUpModal').removeClass('fade');
+          // $('.modal-backdrop').remove();
+          // $('body').removeClass('modal-open');
           if (response.code === 200) {
             $('#success-message').addClass('messages-success'),
               $('#success-message').html('User Signed up successfully')
@@ -436,7 +437,7 @@ function login() {
     if (email && passwd) {
       $.ajax({
         crossDomain: true,
-        url: `http://localhost/NewsPortal/api/auth.php`,
+        url: `http://localhost/NEWS_DESK/api/auth.php`,
         method: 'POST',
         data: {
           action: 'login',
@@ -448,10 +449,7 @@ function login() {
           // console.log(response)
           $('.loginemail').val('')
           $('.loginpasswd').val('')
-          $('#loginModal').modal("hide");
-          $('#loginModal').removeClass('fade');
-          $('.modal-backdrop').remove();
-          $('body').removeClass('modal-open');
+          $('#logindismiss').trigger('click');
           if (response.code === 200) {
             // console.log(response)
             sessionStorage.setItem('userid', response.userId)
@@ -513,7 +511,7 @@ function userLogout() {
   $('.logoutbtn').on('click', function () {
     $.ajax({
       crossDomain: true,
-      url: `http://localhost/NewsPortal/api/auth.php`,
+      url: `http://localhost/NEWS_DESK/api/auth.php`,
       method: 'POST',
       data: {
         action: 'logout',

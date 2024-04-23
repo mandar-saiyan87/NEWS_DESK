@@ -359,7 +359,7 @@ function getSearchResult(callback) {
 }
 
 function signUp() {
-  $('#signUp').on('click', function () {
+  $('.signupbtn').on('click', function () {
     let email = $('.useremail').val()
     let passwd = $('.passwd').val()
     let confpasswd = $('.confpasswd').val()
@@ -430,7 +430,7 @@ function signUp() {
 }
 
 function login() {
-  $('#login').on('click', function () {
+  $('.loginbtn').on('click', function () {
     let email = $('.loginemail').val()
     let passwd = $('.loginpasswd').val()
     // console.log(email, passwd)

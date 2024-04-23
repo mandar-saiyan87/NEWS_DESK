@@ -182,7 +182,7 @@ session_start();
         <!---- Messages end ------>
         <div class="modal-footer">
           <button type="button" id="logindismiss" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" id='login' class="btn btn-primary">Log In</button>
+          <button type="button" class="btn btn-primary loginbtn">Log In</button>
         </div>
       </div>
     </div>
@@ -222,7 +222,7 @@ session_start();
         <!---- Messages end ------>
         <div class="modal-footer">
           <button type="button" id="signupdismiss" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" id='signUp' class="btn btn-primary">Sign Up</button>
+          <button type="button" class="btn btn-primary signupbtn">Sign Up</button>
         </div>
       </div>
     </div>

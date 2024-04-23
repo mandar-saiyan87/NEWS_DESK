@@ -1,12 +1,17 @@
 <?php
-session_start();
+// session_start();
 // Check if the user is logged in
-
+include('api/database.php');
 if (!isset($_SESSION['logged-in']) || $_SESSION['logged-in'] !== true || $_SESSION['usertype'] !== 'admin') {
   // Redirect to the index page
   header('LOCATION: index.php');
   exit;
 }
+
+$get_news = "select * from news";
+$res = $db_connected->query($get_news);
+// echo "<pre>";
+// print_r($res);
 ?>
 
 
@@ -49,6 +54,9 @@ if (!isset($_SESSION['logged-in']) || $_SESSION['logged-in'] !== true || $_SESSI
 
     <!-- Main Content Start -->
     <div class="main_content">
+      <?php
+      include('messages/message.php')
+      ?>
 
       <!-- User Section Start -->
       <section id="exclusive" class="container text-center">
@@ -65,6 +73,28 @@ if (!isset($_SESSION['logged-in']) || $_SESSION['logged-in'] !== true || $_SESSI
           <a href="add-news.php">
             <button class="common_btn" style="margin-top: 1.5rem;">Add News</button>
           </a>
+          <div id="" class="text-start" style="margin: 2rem;">
+            <?php
+            if ($res->num_rows > 0) {
+              // echo "<pre>";
+              // print_r($res->fetch_all(MYSQLI_ASSOC));
+              $rows = $res->fetch_all(MYSQLI_ASSOC);
+
+              foreach ($rows as $row) {
+            ?>
+                <div class="search-card-main">
+                  <img src="<?php echo $row['imgurl'] ?>" alt="newsimg" class="search-card-img" />
+                  <div class="card-details">
+                    <p class="news-cardtag">NewsDesk</p>
+                    <h5><?php echo htmlspecialchars($row['title']) ?></h5>
+                    <p class="search-card-desc"><?php echo htmlspecialchars($row['subtitle']) ?></p>
+                  </div>
+                </div>
+            <?php
+              }
+            }
+            ?>
+          </div>
         </div>
       </section>
       <!-- User Section End -->

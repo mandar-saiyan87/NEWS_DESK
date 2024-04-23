@@ -166,6 +166,8 @@ $(document).ready(function () {
     $(':input').val('');
   })
 
+
+
   // Hero Section News Carousel
   let heronews = $('#hero-news');
   herodata.forEach(news => {
@@ -537,8 +539,6 @@ function userLogout() {
     })
   })
 }
-
-//modal values clear
 
 
 // Show Spinner

@@ -1,12 +1,45 @@
 <?php
-session_start();
+// session_start();
 // Check if the user is logged in
+include('api/database.php');
 
 if (!isset($_SESSION['logged-in']) || $_SESSION['logged-in'] !== true || $_SESSION['usertype'] !== 'admin') {
   // Redirect to the index page
   header('LOCATION: index.php');
   exit;
 }
+
+
+
+if (isset($_POST['submit-news'])) {
+  extract($_POST);
+  // echo "<pre>";
+  // print_r($_POST);
+  $owner_id =  $_SESSION['userId'];
+
+  try {
+    if (strlen($title) > 10 && strlen($img_url) > 10 && strlen($newscontent) > 10) {
+
+      $add_news_query = "insert into news (title, imgurl, subtitle, content, owner) values ('$title', '$img_url', '$subtitle', '$newscontent', '$owner_id')";
+      // echo $add_news_query;
+      $res = $db_connected->query($add_news_query);
+      if ($res) {
+        $_SESSION['success'] = 'News post created successfully';
+      } else {
+        $_SESSION['failed'] = 'Something went wrong, Please try again!';
+      }
+      header('LOCATION: admin.php');
+      exit;
+    } else {
+      $_SESSION['warning'] = 'Couldn\'t create news. News length is too short';
+    }
+    header('LOCATION: add-news.php');
+    exit;
+  } catch (Exception $e) {
+    throw $e->getMessage();
+  }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +85,6 @@ if (!isset($_SESSION['logged-in']) || $_SESSION['logged-in'] !== true || $_SESSI
 </head>
 
 <body>
-
   <div class="main_wrapper">
     <!-- Header Start -->
     <?php
@@ -68,15 +100,19 @@ if (!isset($_SESSION['logged-in']) || $_SESSION['logged-in'] !== true || $_SESSI
 
     <!-- Main Content Start -->
     <div class="main_content">
-
+      <?php
+      include('messages/message.php')
+      ?>
       <!-- User Section Start -->
       <section id="exclusive" class="container">
         <div id="" class="">
           <h3 class="section-title">Add News (For members only)</span></h3>
-          <form action="">
-            <input type="text" class="form-control" style="margin: 1rem 0;" placeholder="News title..." aria-label="Username" aria-describedby="basic-addon1">
-            <input type="text" class="form-control" style="margin: 1rem 0;" placeholder="image url..." aria-label="Username" aria-describedby="basic-addon1">
+          <form action="add-news.php" method="post">
+            <input type="text" name="title" class="form-control" style="margin: 1rem 0;" placeholder="News title..." aria-label="Username" aria-describedby="basic-addon1">
+            <input type="text" name="img_url" class="form-control" style="margin: 1rem 0;" placeholder="image url..." aria-label="Username" aria-describedby="basic-addon1">
+            <input type="text" name="subtitle" class="form-control" style="margin: 1rem 0;" placeholder="subtitle..." aria-label="Username" aria-describedby="basic-addon1">
             <textarea id="newstext" name="newscontent" id="" cols="100" rows="10"></textarea>
+            <button name="submit-news" class="common_btn" style="margin: 1.5rem 0;" type="submit">Submit</button>
           </form>
         </div>
       </section>

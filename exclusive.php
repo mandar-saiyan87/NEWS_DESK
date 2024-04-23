@@ -1,12 +1,17 @@
 <?php
-session_start();
-// Check if the user is logged in
+// session_start();
 
+include('api/database.php');
+// Check if the user is logged in
 if (!isset($_SESSION['logged-in']) || $_SESSION['logged-in'] !== true) {
   // Redirect to the index page
   header('LOCATION: index.php');
   exit;
 }
+$get_news = "select * from news";
+$res = $db_connected->query($get_news);
+// echo "<pre>";
+// print_r($res);
 ?>
 
 <!DOCTYPE html>
@@ -60,8 +65,27 @@ if (!isset($_SESSION['logged-in']) || $_SESSION['logged-in'] !== true) {
             cumque asperiores vitae nihil maxime quasi quas, sapiente cum ipsam nobis temporibus, nesciunt molestias
             quos neque? Quasi harum fuga dolorem eum id voluptatibus exercitationem unde quaerat labore eaque?</p>
         </div>
-        <div id="">
+        <div id="" class="text-start" style="margin: 2rem;">
+          <?php
+          if ($res->num_rows > 0) {
+            // echo "<pre>";
+            // print_r($res->fetch_all(MYSQLI_ASSOC));
+            $rows = $res->fetch_all(MYSQLI_ASSOC);
 
+            foreach ($rows as $row) {
+          ?>
+              <div class="search-card-main">
+                  <img src="<?php echo $row['imgurl'] ?>" alt="newsimg" class="search-card-img" />
+                <div class="card-details">
+                  <p class="news-cardtag">NewsDesk</p>
+                  <h5><?php echo htmlspecialchars($row['title']) ?></h5>
+                  <p class="search-card-desc"><?php echo htmlspecialchars($row['subtitle']) ?></p>
+                </div>
+              </div>
+          <?php
+            }
+          }
+          ?>
         </div>
       </section>
       <!-- User Section End -->

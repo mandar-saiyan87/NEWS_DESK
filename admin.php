@@ -88,8 +88,8 @@ $res = $db_connected->query($get_news);
                     <img src="<?php echo $row['imgurl'] ?>" alt="newsimg" class="search-card-img" />
                     <div class="card-details">
                       <p class="news-cardtag">NewsDesk</p>
-                      <h5><?php echo htmlspecialchars($row['title']) ?></h5>
-                      <p class="search-card-desc"><?php echo htmlspecialchars($row['subtitle']) ?></p>
+                      <h5><?php echo ($row['title']) ?></h5>
+                      <p class="search-card-desc"><?php echo ($row['subtitle']) ?></p>
                     </div>
                   </div>
                 </a>

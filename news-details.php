@@ -83,12 +83,12 @@ if (isset($_GET['id'])) {
             if ($_SESSION['usertype'] === 'admin') {
             ?>
               <div class="admin-btn">
-                <a href="">
-                  <button class="common_btn news-btn">EDIT</button>
+                <a href="edit-news.php?id=<?php echo $row[0]['id'] ?>">
+                  <button class="common_btn news-btn">Edit</button>
                 </a>
 
                 <a href="delete.php?id=<?php echo $row[0]['id'] ?>">
-                  <button class="common_btn news-btn">DELETE</button>
+                  <button class="common_btn news-btn">Delete</button>
                 </a>
               </div>
             <?php

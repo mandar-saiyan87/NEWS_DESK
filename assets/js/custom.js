@@ -167,6 +167,8 @@ $(document).ready(function () {
   })
 
 
+  // check Width to set Edit/Delete
+  setadminbtn()
 
   // Hero Section News Carousel
   let heronews = $('#hero-news');
@@ -541,6 +543,21 @@ function userLogout() {
 }
 
 
+// check Width to set Edit/Delete
+function setadminbtn() {
+  $(window).resize(function () {
+    var screensize = $(window).width()
+    if (screensize <= 768) {
+      $('.news-btn').removeClass('common_btn')
+      $('.news-btn').addClass('mobilecommon_btn')
+    } else {
+      $('.news-btn').removeClass('mobilecommon_btn')
+    }
+  })
+
+}
+
+
 // Show Spinner
 function showSpinner() {
   $('.loading-spinner').css('display', 'flex')
@@ -550,6 +567,9 @@ function showSpinner() {
 function hideSpinner() {
   $('.loading-spinner').css('display', 'none')
 }
+
+// News-details edit and delete button
+
 
 
 

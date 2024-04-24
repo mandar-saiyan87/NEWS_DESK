@@ -11,9 +11,12 @@ if (!isset($_SESSION['logged-in']) || $_SESSION['logged-in'] !== true) {
 
 if (isset($_GET['id'])) {
   // echo $_GET['id'];
-  $id = $_GET['id'];
+  extract($_GET);
   $get_news = "select * from news where id=$id";
   $res = $db_connected->query($get_news);
+  if ($res->num_rows > 0) {
+    $row = $res->fetch_all(MYSQLI_ASSOC);
+  }
 } else {
   echo '<h1>No news here</h1>';
   exit;
@@ -62,8 +65,37 @@ if (isset($_GET['id'])) {
     <div class="main_content">
 
       <!-- User Section Start -->
-      <section id="exclusive">
-        News details page
+      <section id="exclusive" class="">
+        <div class="section-hero" style="background-image: url('<?php echo $row[0]['imgurl'] ?>')">
+          <div class="bg-wrapper">
+            <div class="hero-container">
+              <h2 class="hero-title"><?php echo $row[0]['title'] ?></h2>
+              <p class="hero-subtitle"><?php echo $row[0]['subtitle'] ?></p>
+            </div>
+          </div>
+        </div>
+        <div class="news-content">
+          <?php
+          echo $row[0]['content']
+          ?>
+          <div>
+            <?php
+            if ($_SESSION['usertype'] === 'admin') {
+            ?>
+              <div class="admin-btn">
+                <a href="">
+                  <button class="common_btn news-btn">EDIT</button>
+                </a>
+
+                <a href="delete.php?id=<?php echo $row[0]['id'] ?>">
+                  <button class="common_btn news-btn">DELETE</button>
+                </a>
+              </div>
+            <?php
+            }
+            ?>
+          </div>
+        </div>
       </section>
       <!-- User Section End -->
     </div>

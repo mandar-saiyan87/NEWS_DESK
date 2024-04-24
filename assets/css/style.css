@@ -271,7 +271,6 @@ img {
   margin-top: 1.5rem;
 }
 
-
 .mobileauthbtn {
   display: flex;
   margin-top: 2rem;
@@ -443,7 +442,7 @@ img {
 /******************* < !-- Hero Section --> CSS ************************/
 
 .section-hero {
-  background-image: url('../images/bthero.jpg');
+  /* background-image: url('../images/bthero.jpg'); */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -803,6 +802,7 @@ img {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+  color: var(--secondary-color);
   overflow: hidden;
 }
 
@@ -840,5 +840,19 @@ img {
 .exclusive-main {
   padding: 2rem 10rem;
 }
+
+/***************** <------------ News Details ----------------------> *******************/
+.news-content {
+  margin: 1.2rem 0;
+  padding: 1rem;
+}
+
+
+.admin-btn {
+  margin: 1rem 0;
+  display: flex;
+  gap: 10px
+}
+
 
 /*********************  Default-CSS  End *********************/

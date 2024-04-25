@@ -29,6 +29,7 @@ if (isset($_POST['submit-news'])) {
         $_SESSION['failed'] = 'Something went wrong, Please try again!';
       }
       header('LOCATION: admin.php');
+      exit;
     } else {
       $_SESSION['warning'] = 'Couldn\'t create news. News length is too short';
     }

@@ -43,17 +43,16 @@ if (isset($_POST['edit-news'])) {
         $_SESSION['failed'] = 'Something went wrong, Please try again!';
       }
       header('LOCATION: admin.php');
-      exit;
     } else {
       $_SESSION['warning'] = 'Couldn\'t create news. News length is too short';
     }
     header('LOCATION: edit-news.php');
-    exit;
   } catch (Exception $e) {
     throw $e->getMessage();
   }
 } else if (isset($_POST['cancel'])) {
   header("LOCATION: admin.php");
+  exit;
 }
 
 

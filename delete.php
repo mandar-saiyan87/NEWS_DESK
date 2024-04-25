@@ -13,7 +13,6 @@ if (isset($_GET['id']) && $_SESSION['usertype'] === 'admin') {
       $_SESSION['failed'] = 'Couldn\'t delete news. Something went wrong!';
     }
     header('LOCATION: admin.php');
-    exit;
   } catch (Exception $e) {
     echo "Exception: " . $e->getMessage();
     exit;
